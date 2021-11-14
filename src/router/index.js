@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // import {nextTick} from 'vue';
 const routes = [
   {
-    path: '/basicInfo',
+    path: '/',
     component: () => import('@/views/BasicInfo')
   },
   {

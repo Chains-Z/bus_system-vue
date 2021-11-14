@@ -1,12 +1,12 @@
 <template>
 <el-menu
-    default-active="1"
+    :default-active="defActive"
     mode="horizontal"
     :router="true"
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b">
-  <el-menu-item index="1" route="/basicInfo">
+  <el-menu-item index="1" route="/">
     <el-icon :size="1"><office-building /></el-icon>金河市公交系统
   </el-menu-item>
   <el-menu-item index="2" route="/station">
@@ -26,8 +26,27 @@ import {AlarmClock,Histogram,MapLocation,OfficeBuilding} from "@element-plus/ico
 </script>
 <script>
 export default {
-  name: "Header"
-
+  name: "Header",
+  data(){
+    return{
+      defActive:'1'
+    }
+  },
+  watch:{
+    '$route'(){
+      switch (this.$route.path) {
+        case '/station':
+          this.defActive = '2';
+          break;
+        case '/timetable':
+          this.defActive = '3';
+          break;
+        case '/analysis':
+          this.defActive = '4';
+          break;
+      }
+    }
+  },
 }
 </script>
 
