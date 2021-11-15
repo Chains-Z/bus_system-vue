@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row class="box-card">
+    <el-row>
       <el-col :span="19" :offset="5">
         <h1>线路基本信息查询</h1>
       </el-col>
@@ -62,9 +62,6 @@ export default {
 </script>
 
 <style scoped>
-.box-card{
-  text-align: start;
-}
 .space{
   margin-bottom: 20px;
 }
