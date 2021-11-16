@@ -5,14 +5,18 @@
         <h1>线路基本信息查询</h1>
       </el-col>
     </el-row>
-    <el-row class="space">
+    <el-row>
       <el-col :span="12" :offset="5">
-        <el-input v-model="searchParams" placeholder="请输入线路名称" >
-          <template #append>路</template>
-        </el-input>
-      </el-col>
-      <el-col :span="1">
-        <el-button type="primary" :icon="Search" @click="this.console.log(line.name)">Search</el-button>
+        <el-form :inline="true">
+          <el-form-item>
+            <el-input v-model="searchParams" placeholder="请输入站点名称">
+              <template #append>站</template>
+            </el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary">搜索</el-button>
+          </el-form-item>
+        </el-form>
       </el-col>
     </el-row>
     <el-row>
@@ -22,8 +26,8 @@
           <el-table-column prop="directional" label="directional"/>
           <el-table-column prop="interval" label="interval"/>
           <el-table-column prop="kilometer" label="kilometer"/>
-          <el-table-column prop="onewayTime" label="onewayTime"/>
-          <el-table-column prop="route" label="route"/>
+          <el-table-column prop="oneWayTime" label="onewayTime"/>
+          <el-table-column prop="route" label="route" width="250"/>
           <el-table-column prop="runtime" label="runtime"/>
           <el-table-column prop="type" label="type"/>
         </el-table>
@@ -41,20 +45,20 @@ export default {
   data() {
     return {
       searchParams: '',
-      lines : [{
+      lines: [{ //TODO:拿数据记得把对象放进数组
+        "name": "1",
         "directional": true,
-        "interval": 3,
-        "kilometer": 8.0,
-        "name": "K4",
-        "onewayTime": "约18分",
-        "route": "钟楼-环球中心",
-        "runtime": "6:15-21:50",
-        "type": "快速公交"
+        "interval": 5,
+        "kilometer": 15.0,
+        "oneWayTime": 52,
+        "route": "金河客运站-花明公交站",
+        "runtime": ["6:00-23:59"],
+        "type": "干线"
       }]
     }
   },
-  methods : {
-    log(message){
+  methods: {
+    log(message) {
       console.log(message)
     }
   }
@@ -62,7 +66,5 @@ export default {
 </script>
 
 <style scoped>
-.space{
-  margin-bottom: 20px;
-}
+
 </style>
