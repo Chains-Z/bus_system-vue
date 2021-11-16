@@ -13,7 +13,9 @@
     </el-row>
     <el-row>
       <el-col :span="14" :offset="5">
-        <component :is="tab"></component>
+        <keep-alive>
+          <component :is="tab"></component>
+        </keep-alive>
       </el-col>
     </el-row>
   </div>
