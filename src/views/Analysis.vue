@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="14" :offset="5" style="background-color: aqua">
+      <el-col :span="14" :offset="5">
 
         <el-form inline>
           <el-form-item>
