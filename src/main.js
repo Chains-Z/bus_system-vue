@@ -8,4 +8,5 @@ import qs from 'qs'
 const app = createApp(App)
 app.config.globalProperties.$log = console.log
 app.config.globalProperties.qs = qs
+axios.defaults.baseURL = 'api'
 app.use(VueAxios,axios).use(router).mount('#app')
