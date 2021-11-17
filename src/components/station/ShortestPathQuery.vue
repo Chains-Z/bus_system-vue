@@ -7,16 +7,29 @@
   <el-row>
     <el-col :span="24">
       <el-form :inline="true">
-        <el-form-item label="起点站">
-          <el-input v-model="start" placeholder="请输入站点名称">
-            <template #append>站</template>
-          </el-input>
+        <el-form-item label="使用ID查询">
+          <el-switch v-model="idQuery"/>
         </el-form-item>
-        <el-form-item label="终点站">
-          <el-input v-model="end" placeholder="请输入站点名称">
-            <template #append>站</template>
-          </el-input>
-        </el-form-item>
+        <span v-if="idQuery">
+          <el-form-item label="起点站ID">
+            <el-input v-model="startId" placeholder="请输入站点ID"/>
+          </el-form-item>
+          <el-form-item label="终点站ID">
+            <el-input v-model="endId" placeholder="请输入站点ID"/>
+          </el-form-item>
+        </span>
+        <span v-else>
+          <el-form-item label="起点站名称">
+            <el-input v-model="startName" placeholder="请输入站点名称">
+              <template #append>站</template>
+            </el-input>
+          </el-form-item>
+          <el-form-item label="终点站名称">
+            <el-input v-model="endName" placeholder="请输入站点名称">
+              <template #append>站</template>
+            </el-input>
+          </el-form-item>
+        </span>
         <el-form-item>
           <el-button type="primary">搜索</el-button>
         </el-form-item>
@@ -37,8 +50,11 @@ export default {
   name: "ShortestPathQuery",
   data() {
     return {
-      start: '',
-      end: '',
+      idQuery : false,
+      startName: '',
+      endName: '',
+      startId: '',
+      endId: '',
       data: [{
         "stationId": ["16116", "59549", "5183", "5204", "5167", "5214"],
         "stationName": ["红瓦寺", "天九街", "万安路东", "万安路", "万安路西", "动物园"],
