@@ -21,11 +21,11 @@
   </div>
 </template>
 <script>
-import AllStationQuery from "@/components/AllStationQuery";
-import AlongStationQuery from "@/components/AlongStationQuery";
-import StationStopLine from "@/components/StationStopLine";
-import ShortestPathQuery from "@/components/ShortestPathQuery";
-import DirectPathQuery from "@/components/DirectPathQuery";
+import AllStationQuery from "@/components/station/AllStationQuery";
+import AlongStationQuery from "@/components/station/AlongStationQuery";
+import StationStopLine from "@/components/station/StationStopLine";
+import ShortestPathQuery from "@/components/station/ShortestPathQuery";
+import DirectPathQuery from "@/components/station/DirectPathQuery";
 
 export default {
   name: "Station",
