@@ -1,17 +1,22 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="14" :offset="5">
-        <el-radio-group v-model="tab">
-          <el-radio-button label="StationWithMostStopsStats">统计停靠路线最多的站点</el-radio-button>
-          <el-radio-button label="SpecialStationStats">统计地铁站、起点站、终点站、单行站数量</el-radio-button>
-          <el-radio-button label="BusTypeStats">统计常规公交、快速公交、高峰公交、夜班公交数量</el-radio-button>
-          <el-radio-button label="DuplicateStationStats">统计俩公交线路重复站点数量</el-radio-button>
-          <el-radio-button label="LineTransferStats">统计公交线路可换乘线路数量</el-radio-button>
-          <el-radio-button label="StationWithMostLinesStats">统计两个站台之间线路的数量</el-radio-button>
-          <el-radio-button label="LineWithMostStationsStats">统计公交线路的站点数量</el-radio-button>
-          <el-radio-button label="LineWithLongestOneWayTimeStats">统计公交线路的运行时间</el-radio-button>
-        </el-radio-group>
+      <el-col :span="14" :offset="5" style="background-color: aqua">
+
+        <el-form inline>
+          <el-form-item>
+              <el-select v-model="tab" placeholder="请选择需要统计的数据" style="width: 400px">
+                <el-option value="StationWithMostStopsStats" label="统计停靠路线最多的站点"></el-option>
+                <el-option value="SpecialStationStats" label="统计地铁站、起点站、终点站、单行站数量"></el-option>
+                <el-option value="BusTypeStats" label="统计常规公交、快速公交、高峰公交、夜班公交数量"></el-option>
+                <el-option value="DuplicateStationStats" label="统计俩公交线路重复站点数量"></el-option>
+                <el-option value="LineTransferStats" label="统计公交线路可换乘线路数量"></el-option>
+                <el-option value="StationWithMostLinesStats" label="统计两个站台之间线路的数量"></el-option>
+                <el-option value="LineWithMostStationsStats" label="统计公交线路的站点数量"></el-option>
+                <el-option value="LineWithLongestOneWayTimeStats" label="统计公交线路的运行时间"></el-option>
+              </el-select>
+          </el-form-item>
+        </el-form>
       </el-col>
     </el-row>
     <el-row>
