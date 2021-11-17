@@ -2,21 +2,14 @@
   <div>
     <el-row>
       <el-col :span="14" :offset="5">
-
-        <el-form inline>
-          <el-form-item>
-              <el-select v-model="tab" placeholder="请选择需要统计的数据" style="width: 400px">
-                <el-option value="StationWithMostStopsStats" label="统计停靠路线最多的站点"></el-option>
-                <el-option value="SpecialStationStats" label="统计地铁站、起点站、终点站、单行站数量"></el-option>
-                <el-option value="BusTypeStats" label="统计常规公交、快速公交、高峰公交、夜班公交数量"></el-option>
-                <el-option value="DuplicateStationStats" label="统计俩公交线路重复站点数量"></el-option>
-                <el-option value="LineTransferStats" label="统计公交线路可换乘线路数量"></el-option>
-                <el-option value="StationWithMostLinesStats" label="统计两个站台之间线路的数量"></el-option>
-                <el-option value="LineWithMostStationsStats" label="统计公交线路的站点数量"></el-option>
-                <el-option value="LineWithLongestOneWayTimeStats" label="统计公交线路的运行时间"></el-option>
-              </el-select>
-          </el-form-item>
-        </el-form>
+        <el-radio-group v-model="tab">
+          <el-radio-button label="StationWithMostStopsStats">统计站点停靠路线数量</el-radio-button>
+          <el-radio-button label="SpecialStationStats">统计特殊站点数量</el-radio-button>
+          <el-radio-button label="BusTypeStats">统计线路类型</el-radio-button>
+          <el-radio-button label="LinesBetweenTwoStationsStats">统计站台之间线路的数量</el-radio-button>
+          <el-radio-button label="LineWithMostStationsStats">统计线路的站点数量</el-radio-button>
+          <el-radio-button label="LineWithLongestOneWayTimeStats">统计公交线路的运行时间</el-radio-button>
+        </el-radio-group>
       </el-col>
     </el-row>
     <el-row>
@@ -31,11 +24,9 @@
 
 <script>
 import StationWithMostStopsStats from "@/components/analysis/StationWithMostStopsStats";
-import StationWithMostLinesStats from "@/components/analysis/StationWithMostLinesStats";
+import LinesBetweenTwoStationsStats from "@/components/analysis/LinesBetweenTwoStationsStats";
 import SpecialStationStats from "@/components/analysis/SpecialStationStats";
 import BusTypeStats from "@/components/analysis/BusTypeStats";
-import DuplicateStationStats from "@/components/analysis/DuplicateStationStats";
-import LineTransferStats from "@/components/analysis/LineTransferStats";
 import LineWithMostStationsStats from "@/components/analysis/LineWithMostStationsStats";
 import LineWithLongestOneWayTimeStats from "@/components/analysis/LineWithLongestOneWayTimeStats";
 
@@ -43,12 +34,10 @@ export default {
   name: "Analysis",
   components: {
     StationWithMostStopsStats,
-    DuplicateStationStats,
-    StationWithMostLinesStats,
+    LinesBetweenTwoStationsStats,
     SpecialStationStats,
     BusTypeStats,
     LineWithLongestOneWayTimeStats,
-    LineTransferStats,
     LineWithMostStationsStats
   },
   data() {
