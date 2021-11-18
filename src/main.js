@@ -4,6 +4,7 @@ import router from './router'
 import axios from "axios"
 import VueAxios from "vue-axios"
 import qs from 'qs'
+import 'element-plus/dist/index.css'
 
 const app = createApp(App)
 app.config.globalProperties.$log = console.log
