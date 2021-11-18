@@ -1,14 +1,48 @@
 <template>
   <el-row>
     <el-col :span="24">
-      <h1>统计地铁站、起点站、终点站、单行站数量</h1>
+      <h1>统计地铁站、起点站、终点站、单行站数量
+        <el-button type="primary" style="margin-left: 20px" @click="getData">查询</el-button>
+      </h1>
     </el-col>
+  </el-row>
+  <el-row>
+    <el-table :data="data" stripe border>
+      <el-table-column prop="type" label="站点类型" width="80"/>
+      <el-table-column prop="amount" label="站点数量" width="80"/>
+      <el-table-column prop="names" label="站点名称"/>
+    </el-table>
   </el-row>
 </template>
 
 <script>
+import {ElMessage} from "element-plus";
+
 export default {
-  name: "SpecialStationStats"
+  name: "SpecialStationStats",
+  data() {
+    return {
+      data: undefined
+    }
+  },
+  methods: {
+    getData() {
+      let url1 = `/statistics/count_different_type_of_stations`
+      let url2 = `/statistics/get_single_line_station`
+      Promise.all([this.axios.get(url1), this.axios.get(url2)])
+          .then(res => {
+            let data1 = res[0].data.data
+            let data2 = res[1].data.data
+            data2 = [{
+              type : '单行站',
+              names : data2['单行站'],
+              amount : data2['单行站'].length
+            }]
+            this.data = data1.concat(data2)
+            ElMessage.success("查询成功！")
+          }).catch(error => ElMessage.error(error.toString()))
+    }
+  }
 }
 </script>
 
