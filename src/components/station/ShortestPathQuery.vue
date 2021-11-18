@@ -31,7 +31,7 @@
           </el-form-item>
         </span>
         <el-form-item>
-          <el-button type="primary">搜索</el-button>
+          <el-button type="primary" @click="getData">搜索</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import {ElMessage} from "element-plus";
+
 export default {
   name: "ShortestPathQuery",
   data() {
@@ -55,44 +57,9 @@ export default {
       endName: '',
       startId: '',
       endId: '',
-      data: [{
-        "stationId": ["16116", "59549", "5183", "5204", "5167", "5214"],
-        "stationName": ["红瓦寺", "天九街", "万安路东", "万安路", "万安路西", "动物园"],
-        "lineName": ["G27路上行", "70路下行", "N19路上行", "N19路上行", "N19路上行"]
-      }, {
-        "stationId": ["16116", "59549", "5183", "764", "749", "5181", "5197", "5168", "14768"],
-        "stationName": ["红瓦寺", "天九街", "万安路东", "生态公园", "画展中心", "万安路东", "万安路", "万安路西", "动物园"],
-        "lineName": ["G27路上行", "70路下行", "57路下行", "N12路下行", "N19路下行", "N19路下行", "N19路下行", "57路上行"]
-      }, {
-        "stationId": ["16115", "59548", "5181", "749", "764", "5183", "5204", "5167", "5214"],
-        "stationName": ["红瓦寺", "天九街", "万安路东", "画展中心", "生态公园", "万安路东", "万安路", "万安路西", "动物园"],
-        "lineName": ["G27路下行", "70路上行", "N19路下行", "N12路下行", "57路下行", "N19路上行", "N19路上行", "N19路上行"]
-      }, {
-        "stationId": ["16115", "59548", "5181", "5197", "5168", "14768"],
-        "stationName": ["红瓦寺", "天九街", "万安路东", "万安路", "万安路西", "动物园"],
-        "lineName": ["G27路下行", "70路上行", "N19路下行", "N19路下行", "57路上行"]
-      }],
-      paths: [{
-        "startId": "16116",
-        "endId": "5214",
-        "path": "红瓦寺--G27路上行-->天九街--70路下行-->万安路东--N19路上行-->万安路--N19路上行-->万安路西--N19路上行-->动物园"
-      }, {
-        "startId": "16116",
-        "endId": "14768",
-        "path": "红瓦寺--G27路上行-->天九街--70路下行-->万安路东--57路下行-->生态公园--N12路下行-->画展中心--N19路下行-->万安路东--N19路下行-->万安路--N19路下行-->万安路西--57路上行-->动物园"
-      }, {
-        "startId": "16115",
-        "endId": "5214",
-        "path": "红瓦寺--G27路下行-->天九街--70路上行-->万安路东--N19路下行-->画展中心--N12路下行-->生态公园--57路下行-->万安路东--N19路上行-->万安路--N19路上行-->万安路西--N19路上行-->动物园"
-      }, {
-        "startId": "16115",
-        "endId": "14768",
-        "path": "红瓦寺--G27路下行-->天九街--70路上行-->万安路东--N19路下行-->万安路--N19路下行-->万安路西--57路上行-->动物园"
-      }]
+      data: undefined,
+      paths: undefined
     }
-  },
-  created() {
-    this.processData()
   },
   methods: {
     processData() {
@@ -109,9 +76,26 @@ export default {
         return res
       })
       console.log(JSON.stringify(this.paths))
+    },
+    getData(){
+      let url = this.idQuery ? `/station/get_shortest_path_with_id?from=${this.startId}&to=${this.endId}`
+          : `/station/get_shortest_path_with_name?from=${this.startName}&to=${this.endName}`
+      this.axios.get(url).then(res=>{
+        if(res.data.isok) {
+          let data = res.data.data
+          console.log(data)
+          if (data instanceof Array)
+            this.data = data
+          else
+            this.data = [data]
+          this.processData()
+          ElMessage.success("查询成功！")
+        }
+        else
+          throw new Error(res.data.message)
+      }).catch(error=>ElMessage.error(error.toString()))
     }
   }
-
 }
 </script>
 

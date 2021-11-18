@@ -13,7 +13,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">搜索</el-button>
+          <el-button type="primary" @click="getData">搜索</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -27,16 +27,32 @@
 </template>
 
 <script>
+import {ElMessage} from "element-plus";
+
 export default {
   name: "StationStopLine",
   data() {
     return {
       searchParams : '',
-      stations: [{"stationId": "64355", "stations": ["N26路下行", "G33路上行", "17路下行"]},
-        {"stationId": "64356", "stations": ["N26路上行", "G33路下行", "17路上行"]},
-        {"stationId": "58289", "stations": ["K5路下行"]},
-        {"stationId": "58290", "stations": ["K5路上行"]}]
-
+      stations: undefined
+    }
+  },
+  methods:{
+    getData(){
+      let url = `/station/getlineof/${this.searchParams}`
+      this.axios.get(url).then(res=>{
+        if(res.data.isok) {
+          let data = res.data.data
+          console.log(data)
+          if (data instanceof Array)
+            this.stations = data
+          else
+            this.stations = [data]
+          ElMessage.success("查询成功！")
+        }
+        else
+          throw new Error(res.data.message)
+      }).catch(error=>ElMessage.error(error.toString()))
     }
   }
 }

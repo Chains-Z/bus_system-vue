@@ -23,7 +23,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">搜索</el-button>
+          <el-button type="primary" @click="getData">搜索</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import {ElMessage} from "element-plus";
+
 export default {
   name: "AlongStationQuery",
   data() {
@@ -45,12 +47,26 @@ export default {
       start : '',
       end : '',
       line : '',
-      data: [{
-        "line": "10路上行",//TODO:拿数据时将上下行以外的东西去掉
-        "stations": ["大悦城", "肖家沟", "华通商场", "东林南路", "东林小区(始发站)", "东林路", "小吃街"],
-        "totalTime": 13,
-        "directional": true
-      }]
+      data: undefined
+    }
+  },
+  methods:{
+    getData(){
+
+      let url = `/station/get_info_between?origin=${this.start}&terminus=${this.end}&lineName=${this.line}`
+      this.axios.get(url).then(res=>{
+        if(res.data.isok) {
+          let data = res.data.data
+          console.log(data)
+          if (data instanceof Array)
+            this.data = data
+          else
+            this.data = [data]
+          ElMessage.success("查询成功！")
+        }
+        else
+          throw new Error(res.data.message)
+      }).catch(error=>ElMessage.error(error.toString()))
     }
   }
 }

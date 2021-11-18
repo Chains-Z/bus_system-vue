@@ -2,7 +2,7 @@
   <el-row>
     <el-col :span="24">
       <h1>统计两个站台之间线路的数量
-        <el-button type="primary" style="margin-left: 20px">查询</el-button>
+        <el-button type="primary" style="margin-left: 20px" @click="getData">查询</el-button>
       </h1>
     </el-col>
   </el-row>
@@ -16,43 +16,31 @@
 </template>
 
 <script>
+import {ElMessage} from "element-plus";
+
 export default {
   name: "LinesBetweenTwoStationsStats",
   data() {
     return {
-      data: [{
-        "beginName": "凤溪大道中(24672)",
-        "endName": "凤溪大道和桥(24646)",
-        "numberOfLines": 9
-      }, {"beginName": "凤溪大道中(24674)", "endName": "凤溪大道和桥(24645)", "numberOfLines": 9}, {
-        "beginName": "凤溪大道和桥(24646)",
-        "endName": "凤溪大道中(24672)",
-        "numberOfLines": 9
-      }, {"beginName": "凤溪大道和桥(24645)", "endName": "凤溪大道中(24674)", "numberOfLines": 9}, {
-        "beginName": "河野(24594)",
-        "endName": "凤溪大道和桥(24646)",
-        "numberOfLines": 8
-      }, {"beginName": "科北路口(16433)", "endName": "北门立交南(16419)", "numberOfLines": 8}, {
-        "beginName": "北门立交南(16419)",
-        "endName": "科北路口(16433)",
-        "numberOfLines": 8
-      }, {"beginName": "凤溪大道和桥(24646)", "endName": "河野(24594)", "numberOfLines": 8}, {
-        "beginName": "凤溪大道南(24564)",
-        "endName": "河野(24595)",
-        "numberOfLines": 8
-      }, {"beginName": "凤溪大道和桥(24645)", "endName": "河野(24595)", "numberOfLines": 8}, {
-        "beginName": "河野(24595)",
-        "endName": "凤溪大道南(24564)",
-        "numberOfLines": 8
-      }, {"beginName": "河野(24595)", "endName": "凤溪大道和桥(24645)", "numberOfLines": 8}, {
-        "beginName": "凤溪大道南(24563)",
-        "endName": "河野(24594)",
-        "numberOfLines": 8
-      }, {"beginName": "河野(24594)", "endName": "凤溪大道南(24563)", "numberOfLines": 8}, {
-        "beginName": "金河公园(803)",
-        "endName": "平桥(98730)",
-        "numberOfLines": 7
-      }]
+      data: undefined
+    }
+  },
+  methods:{
+    getData(){
+      let url = `/statistics/stations_with_most_lines_connected`
+      this.axios.get(url).then(res=>{
+        if(res.data.isok) {
+          let data = res.data.data
+          console.log(data)
+          if (data instanceof Array)
+            this.data = data
+          else
+            this.data = [data]
+          ElMessage.success("查询成功！")
+        }
+        else
+          throw new Error(res.data.message)
+      }).catch(error=>ElMessage.error(error.toString()))
     }
   }
 }

@@ -2,7 +2,7 @@
   <el-row>
     <el-col :span="24">
       <h1>统计公交线路的运行时间
-        <el-button type="primary" style="margin-left: 20px">查询</el-button>
+        <el-button type="primary" style="margin-left: 20px" @click="getData">查询</el-button>
       </h1>
     </el-col>
   </el-row>
@@ -15,23 +15,31 @@
 </template>
 
 <script>
+import {ElMessage} from "element-plus";
+
 export default {
   name: "LineWithLongestOneWayTimeStats",
   data() {
     return {
-      data: [{"line": "736路下行", "runtime": 90}, {"line": "736路上行", "runtime": 90}, {
-        "line": "735路下行",
-        "runtime": 86
-      }, {"line": "735路上行", "runtime": 86}, {"line": "727路下行", "runtime": 75}, {
-        "line": "727路上行",
-        "runtime": 72
-      }, {"line": "17路上行", "runtime": 65}, {"line": "334路下行", "runtime": 65}, {
-        "line": "17路下行",
-        "runtime": 65
-      }, {"line": "82路上行", "runtime": 64}, {"line": "334路上行", "runtime": 64}, {
-        "line": "716路上行",
-        "runtime": 64
-      }, {"line": "716路下行", "runtime": 63}, {"line": "47路上行", "runtime": 62}, {"line": "82路下行", "runtime": 62}]
+      data: undefined
+    }
+  },
+  methods:{
+    getData(){
+      let url = `/statistics/lines_sorted_by_onewaytime`
+      this.axios.get(url).then(res=>{
+        if(res.data.isok) {
+          let data = res.data.data
+          console.log(data)
+          if (data instanceof Array)
+            this.data = data
+          else
+            this.data = [data]
+          ElMessage.success("查询成功！")
+        }
+        else
+          throw new Error(res.data.message)
+      }).catch(error=>ElMessage.error(error.toString()))
     }
   }
 }

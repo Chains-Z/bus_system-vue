@@ -12,7 +12,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" :icon="Search">搜索</el-button>
+          <el-button type="primary" :icon="Search" @click="getData">搜索</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -36,21 +36,31 @@
 import {Search} from "@element-plus/icons";
 </script>
 <script>
+
+import {ElMessage} from "element-plus";
+
 export default {
   name: "BasicInfoQuery",
   data() {
     return {
       searchParams: '',
-      lines: [{ //TODO:拿数据记得把对象放进数组
-        "name": "1",
-        "directional": true,
-        "interval": 5,
-        "kilometer": 15.0,
-        "oneWayTime": 52,
-        "route": "金河客运站-花明公交站",
-        "runtime": ["6:00-23:59"],
-        "type": "干线"
-      }]
+      lines: undefined
+    }
+  },
+  methods:{
+    getData(){
+      this.axios.get('/line/info/' + this.searchParams).then(res=>{
+        if(res.data.isok) {
+          let data = res.data.data
+          if (data instanceof Array)
+            this.lines = data
+          else
+            this.lines = [data]
+          ElMessage.success("查询成功！")
+        }
+        else
+          throw new Error(res.data.message)
+      }).catch(error=>ElMessage.error(error.toString()))
     }
   }
 }

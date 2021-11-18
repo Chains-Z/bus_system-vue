@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="12" :offset="5">
         <el-radio-group v-model="tab">
-          <el-radio-button label="AllStationQuery">全部站点查询</el-radio-button>
+          <el-radio-button label="AllStationQuery">线路全部站点查询</el-radio-button>
           <el-radio-button label="StationStopLine">站点停靠线路查询</el-radio-button>
           <el-radio-button label="AlongStationQuery">沿途站点查询</el-radio-button>
           <el-radio-button label="ShortestPathQuery">最短路径查询</el-radio-button>

@@ -16,28 +16,52 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">搜索</el-button>
+          <el-button type="primary" @click="getData" :icon="Search">搜索</el-button>
         </el-form-item>
       </el-form>
     </el-col>
   </el-row>
   <el-row>
-    <span v-if="data[0] === undefined"></span>
-    <span v-else-if="data[0].stations.length === 0">{{`查询结果：${start}和${end}不存在重复的站点。`}}</span>
-    <div v-else>
-      {{`查询结果：${start}和${end}存在重复的站点，站点数量为${data[0].num}，重复的站点为：${data[0].stations}`}}
-    </div>
+    <span v-if="data === undefined"></span>
+    <span v-else>{{message}}</span>
   </el-row>
 </template>
-
+<script setup>
+import {Search} from "@element-plus/icons";
+</script>
 <script>
+import {ElMessage} from "element-plus";
+
 export default {
   name: "DuplicateStationStats",
   data(){
     return{
       start: '',
       end : '',
-      data:[{"stations":["金河市政府(始发站)","孵化园","北门立交东"],"num":3}]
+      message : '',
+      data: undefined
+    }
+  },
+  methods:{
+    getData(){
+      let url = `/station/getSameStation?stationNameA=${this.start}&stationNameB=${this.end}`
+      this.axios.get(url).then(res=>{
+        if(res.data.isok) {
+          let data = res.data.data
+          console.log(data)
+          if (data instanceof Array)
+            this.data = data
+          else
+            this.data = [data]
+          if(data[0].stations.length === 0)
+            this.message = `查询结果：${this.start}和${this.end}不存在重复的站点。`
+          else
+            this.message = `查询结果：${this.start}和${this.end}存在重复的站点，站点数量为${data[0].num}，重复的站点为：${data[0].stations}`
+          ElMessage.success("查询成功！")
+        }
+        else
+          throw new Error(res.data.message)
+      }).catch(error=>ElMessage.error(error.toString()))
     }
   }
 }

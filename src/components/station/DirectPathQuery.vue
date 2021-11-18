@@ -18,26 +18,46 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">搜索</el-button>
+          <el-button type="primary" @click="getData">搜索</el-button>
         </el-form-item>
       </el-form>
     </el-col>
   </el-row>
   <el-row>
     <span v-if="lines === undefined"></span>
-    <span v-else-if="lines.length === 0">{{`查询结果：从${start}到${end}不存在直达线路。`}}</span>
-    <span v-else>{{`查询结果：从${start}到${end}存在直达线路，线路方向为：${lines}`}}</span>
+    <span v-else>{{message}}</span>
   </el-row>
 </template>
 
 <script>
+import {ElMessage} from "element-plus";
+
 export default {
   name: "DirectPathQuery",
   data(){
     return{
       start : '',
       end : '',
-      "lines":["70路下行",'70路上行']
+      lines: undefined,
+      message : ''
+    }
+  },
+  methods:{
+    getData(){
+
+      let url = `/line/get_direct_line_between?from=${this.start}&to=${this.end}`
+      this.axios.get(url).then(res=>{
+        if(res.data.isok) {
+          let data = res.data.data
+          console.log(data)
+          this.lines = data.lines
+          this.message = this.lines.length ? `查询结果：从${this.start}到${this.end}存在直达线路，线路方向为：${this.lines}`
+              : `查询结果：从${this.start}到${this.end}不存在直达线路。`
+          ElMessage.success("查询成功！")
+        }
+        else
+          throw new Error(res.data.message)
+      }).catch(error=>ElMessage.error(error.toString()))
     }
   }
 }
