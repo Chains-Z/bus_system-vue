@@ -16,7 +16,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="getData" :icon="Search">搜索</el-button>
+          <el-button type="primary" @click="getData" >搜索</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -26,9 +26,7 @@
     <span v-else>{{message}}</span>
   </el-row>
 </template>
-<script setup>
-import {Search} from "@element-plus/icons";
-</script>
+
 <script>
 import {ElMessage} from "element-plus";
 
