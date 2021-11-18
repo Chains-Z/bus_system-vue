@@ -8,12 +8,12 @@
     <el-col :span="24">
       <el-form :inline="true">
         <el-form-item label="起点站">
-          <el-input v-model="start" placeholder="请输入站点名称">
+          <el-input v-model="start" placeholder="请输入站点名称" @keyup.enter="getData">
             <template #append>站</template>
           </el-input>
         </el-form-item>
         <el-form-item label="终点站">
-          <el-input v-model="end" placeholder="请输入站点名称">
+          <el-input v-model="end" placeholder="请输入站点名称" @keyup.enter="getData">
             <template #append>站</template>
           </el-input>
         </el-form-item>

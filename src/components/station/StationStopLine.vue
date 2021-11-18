@@ -8,7 +8,7 @@
     <el-col :span="24">
       <el-form :inline="true">
         <el-form-item>
-          <el-input v-model="searchParams" placeholder="请输入站点名称">
+          <el-input v-model="searchParams" placeholder="请输入站点名称" @keyup.enter="getData">
             <template #append>站</template>
           </el-input>
         </el-form-item>

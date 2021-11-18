@@ -12,20 +12,20 @@
         </el-form-item>
         <span v-if="idQuery">
           <el-form-item label="起点站ID">
-            <el-input v-model="startId" placeholder="请输入站点ID"/>
+            <el-input v-model="startId" placeholder="请输入站点ID" @keyup.enter="getData"/>
           </el-form-item>
           <el-form-item label="终点站ID">
-            <el-input v-model="endId" placeholder="请输入站点ID"/>
+            <el-input v-model="endId" placeholder="请输入站点ID" @keyup.enter="getData"/>
           </el-form-item>
         </span>
         <span v-else>
           <el-form-item label="起点站名称">
-            <el-input v-model="startName" placeholder="请输入站点名称">
+            <el-input v-model="startName" placeholder="请输入站点名称" @keyup.enter="getData">
               <template #append>站</template>
             </el-input>
           </el-form-item>
           <el-form-item label="终点站名称">
-            <el-input v-model="endName" placeholder="请输入站点名称">
+            <el-input v-model="endName" placeholder="请输入站点名称" @keyup.enter="getData">
               <template #append>站</template>
             </el-input>
           </el-form-item>

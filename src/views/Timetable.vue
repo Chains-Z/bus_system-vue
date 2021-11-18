@@ -8,7 +8,10 @@
     <el-col :span="14" :offset="5">
       <el-form :inline="true">
         <el-form-item>
-          <el-input v-model="searchParams" placeholder="请输入线路名称" @keyup.enter="getData">
+          <el-input
+              v-model="searchParams"
+              placeholder="请输入线路名称"
+              @keyup.enter="getData">
           </el-input>
         </el-form-item>
         <el-form-item>
@@ -54,11 +57,8 @@ export default {
         if(res.data.isok) {
           let data = res.data.data
           console.log(data)
-          if (data instanceof Array)
-            this.data = data
-          else
-            this.data = [data]
-          this.processData()
+          this.data = data
+          data && this.processData()
           ElMessage.success("查询成功！")
         }
         else

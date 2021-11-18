@@ -8,7 +8,10 @@
     <el-col :span="24">
       <el-form :inline="true">
         <el-form-item>
-          <el-input v-model="searchParams" placeholder="请输入路线名称">
+          <el-input
+              v-model="searchParams"
+              placeholder="请输入路线名称"
+              @keyup.enter="getData">
           </el-input>
         </el-form-item>
         <el-form-item>
