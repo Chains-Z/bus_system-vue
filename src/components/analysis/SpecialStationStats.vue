@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :span="24">
-      <h1>统计地铁站、起点站、终点站、单行站数量
+      <h1>统计地铁站、起点站、终点站数量
         <el-button type="primary" style="margin-left: 20px" @click="getData">查询</el-button>
       </h1>
     </el-col>
@@ -28,17 +28,10 @@ export default {
   methods: {
     getData() {
       let url1 = `/statistics/count_different_type_of_stations`
-      let url2 = `/statistics/get_single_line_station`
-      Promise.all([this.axios.get(url1), this.axios.get(url2)])
+      this.axios.get(url1)
           .then(res => {
-            let data1 = res[0].data.data
-            let data2 = res[1].data.data
-            data2 = [{
-              type : '单行站',
-              names : data2['单行站'],
-              amount : data2['单行站'].length
-            }]
-            this.data = data1.concat(data2)
+            let data1 = res.data.data
+            this.data = data1
             ElMessage.success("查询成功！")
           }).catch(error => ElMessage.error(error.toString()))
     }

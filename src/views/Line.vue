@@ -6,6 +6,7 @@
           <el-radio-button label="BasicInfoQuery">线路基本信息查询</el-radio-button>
           <el-radio-button label="DuplicateStationStats">两线路重复的站点名查询</el-radio-button>
           <el-radio-button label="LineTransferStats">统计公交线路可换乘线路数量</el-radio-button>
+          <el-radio-button label="SingleStationQuery">线路单行站查询</el-radio-button>
         </el-radio-group>
       </el-col>
     </el-row>
@@ -24,9 +25,10 @@
 import BasicInfoQuery from "@/components/line/BasicInfoQuery";
 import DuplicateStationStats from "@/components/line/DuplicateStationStats";
 import LineTransferStats from "@/components/line/LineTransferStats";
+import SingleStationQuery from "@/components/line/SingleStationQuery";
 export default {
   name: "Line",
-  components:{BasicInfoQuery,DuplicateStationStats,LineTransferStats},
+  components:{BasicInfoQuery,DuplicateStationStats,LineTransferStats,SingleStationQuery},
   data() {
     return {
       tab: "BasicInfoQuery",
