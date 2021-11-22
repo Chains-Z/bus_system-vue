@@ -8,7 +8,7 @@
     <el-col :span="24">
       <el-form :inline="true">
           <el-form-item>
-            <el-input v-model="searchParams" placeholder="请输入线路名称"  @keyup.enter="getData">
+            <el-input v-model="searchParams" placeholder="请输入线路名称(包括上下行)"  @keyup.enter="getData">
             </el-input>
           </el-form-item>
         <el-form-item>

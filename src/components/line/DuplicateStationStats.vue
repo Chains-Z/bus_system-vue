@@ -8,11 +8,11 @@
     <el-col :span="24">
       <el-form :inline="true">
         <el-form-item label="路线一">
-          <el-input v-model="start" placeholder="请输入路线名称" @keyup.enter="getData">
+          <el-input v-model="start" placeholder="请输入路线名称(包括上下行)" @keyup.enter="getData">
           </el-input>
         </el-form-item>
         <el-form-item label="路线二">
-          <el-input v-model="end" placeholder="请输入路线名称" @keyup.enter="getData">
+          <el-input v-model="end" placeholder="请输入路线名称(包括上下行)" @keyup.enter="getData">
           </el-input>
         </el-form-item>
         <el-form-item>
