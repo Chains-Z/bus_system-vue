@@ -86,7 +86,7 @@ export default {
           console.log(data)
           if(!this.idQuery)
             data.sort((a,b)=>a['stationId'].length - b['stationId'].length)
-          this.data = dat
+          this.data = data
           this.processData()
           ElMessage.success("查询成功！")
         }
