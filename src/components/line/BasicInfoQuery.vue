@@ -23,14 +23,14 @@
   <el-row>
     <el-col :span="24">
       <el-table :data="lines" :border="true" :stripe="true">
-        <el-table-column prop="name" label="name"/>
-        <el-table-column prop="directional" label="directional"/>
-        <el-table-column prop="interval" label="interval"/>
-        <el-table-column prop="kilometer" label="kilometer"/>
-        <el-table-column prop="oneWayTime" label="onewayTime"/>
-        <el-table-column prop="route" label="route" width="250"/>
-        <el-table-column prop="runtime" label="runtime"/>
-        <el-table-column prop="type" label="type"/>
+        <el-table-column prop="name" label="线路名"/>
+        <el-table-column prop="directional" label="是否有上下行"/>
+        <el-table-column prop="interval" label="班次间隔"/>
+        <el-table-column prop="kilometer" label="单向里程"/>
+        <el-table-column prop="oneWayTime" label="运行时长"/>
+        <el-table-column prop="route" label="线路走向" width="250"/>
+        <el-table-column prop="runtime" label="运行时间"/>
+        <el-table-column prop="type" label="线路类型"/>
       </el-table>
     </el-col>
   </el-row>
